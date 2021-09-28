@@ -7,3 +7,4 @@ foreach($line in Get-Content .\images.properties) {
     docker tag ${value} ${key}
     docker rmi ${value}
 }
+

@@ -1,0 +1,23 @@
+server:
+  port: ${PORT:8679}
+spring:
+  application:
+    name: amp-eureka
+
+eureka:
+  server:
+    enable-self-preservation: true
+  instance:
+    leaseRenewalIntervalInSeconds: 5
+    leaseExpirationDurationInSeconds: 10
+    instance-id: ${EUREKA_INSTANCE_HOSTNAME:${spring.application.name}}:${server.port}@${random.long(1000000,9999999)}
+    hostname: ${EUREKA_INSTANCE_HOSTNAME:${spring.application.name}}
+  client:
+#    register-with-eureka: true
+#    fetch-registry: true
+    registry-fetch-interval-seconds: 5
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER:http://127.0.0.1:${server.port}/eureka/}
+logging:
+  path: logs/
+  level:

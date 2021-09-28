@@ -1,5 +1,5 @@
 param(
-    [string] $IstioVersion = $(Invoke-RestMethod "https://api.github.com/repos/istio/istio/releases")[0].tag_name
+    [string] $IstioVersion = "1.5.0"
 )
 
 $url = "https://github.com/istio/istio/releases/download/$($IstioVersion)/istio-$($IstioVersion)-win.zip"
