@@ -26,6 +26,8 @@ cat >> /etc/hosts << EOF
 172.31.162.101    node01
 172.31.162.100    node02
 172.31.162.95     node03
+172.31.162.94     node04
+172.31.162.93     node05
 EOF
 
 swapoff -a
