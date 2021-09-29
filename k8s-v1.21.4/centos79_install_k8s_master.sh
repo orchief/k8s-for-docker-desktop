@@ -1,22 +1,4 @@
-# 配置好互联网出口 具体需要配置的域名如下
-# https://docker.mirrors.ustc.edu.cn
-
-# 已经安装完毕docker 版本 Docker version 20.10.8
-
-# 配置docker
-cd /etc/docker
-
-tee /etc/docker/daemon.json <<-'EOF'
-{
-  "registry-mirrors": ["https://docker.mirrors.ustc.edu.cn"],
-  "exec-opts": ["native.cgroupdriver=systemd"]
-}
-EOF
-
-systemctl daemon-reload
-systemctl restart docker
-docker run hello-world
-
+# 需要根据实际机器修改
 hostnamectl set-hostname master
 more /etc/hostname
 
