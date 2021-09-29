@@ -44,16 +44,6 @@ EOF
 
 sysctl -p /etc/sysctl.d/k8s.conf
 
-#修改daemon.json，新增‘"exec-opts": ["native.cgroupdriver=systemd"’
-# more /etc/docker/daemon.json 
-# {
-#   "registry-mirrors": ["https://v16stybc.mirror.aliyuncs.com"],
-#   "exec-opts": ["native.cgroupdriver=systemd"]
-# }
-
-# systemctl daemon-reload
-# systemctl restart docker
-
 # 设置kubernetes源
 cat <<EOF > /etc/yum.repos.d/kubernetes.repo
 [kubernetes]
@@ -81,8 +71,5 @@ systemctl enable kubelet && systemctl start kubelet
 # echo "source <(kubectl completion bash)" >> ~/.bash_profile
 # source .bash_profile 
 
-
-
-# 加入master
-
+# 加入master 配置具体按照实际情况
 kubeadm join 172.31.162.110:6443 --token wgbcvp.lzzldh3cvyfymp2a  --discovery-token-ca-cert-hash sha256:24af0f5e2fa20b8a62182a4e514ce3c2924c4e453f7e2ccd33493b6b99281d08

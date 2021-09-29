@@ -16,6 +16,6 @@ yum install docker-ce-20.10.8 docker-ce-cli-20.10.8 containerd.io
 systemctl start docker
 systemctl enable docker
 
-yum -y install bash-completion
+# yum -y install bash-completion
 
-source /etc/profile.d/bash_completion.sh
+# source /etc/profile.d/bash_completion.sh
