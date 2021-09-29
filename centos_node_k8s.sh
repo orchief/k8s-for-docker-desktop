@@ -3,12 +3,14 @@
 
 # 已经安装完毕docker 版本 Docker version 20.10.8
 
+systemctl enable docker
 # 配置docker
 cd /etc/docker
 
 tee /etc/docker/daemon.json <<-'EOF'
 {
-  "registry-mirrors": ["https://docker.mirrors.ustc.edu.cn"]
+  "registry-mirrors": ["https://docker.mirrors.ustc.edu.cn"],
+  "exec-opts": ["native.cgroupdriver=systemd"]
 }
 EOF
 
@@ -28,6 +30,8 @@ cat >> /etc/hosts << EOF
 172.31.162.95     node03
 172.31.162.94     node04
 172.31.162.93     node05
+172.31.162.104    node06
+172.31.162.103    node07
 EOF
 
 swapoff -a
@@ -47,8 +51,8 @@ sysctl -p /etc/sysctl.d/k8s.conf
 #   "exec-opts": ["native.cgroupdriver=systemd"]
 # }
 
-systemctl daemon-reload
-systemctl restart docker
+# systemctl daemon-reload
+# systemctl restart docker
 
 # 设置kubernetes源
 cat <<EOF > /etc/yum.repos.d/kubernetes.repo
@@ -73,23 +77,11 @@ yum install -y kubelet-1.21.4 kubeadm-1.21.4 kubectl-1.21.4
 systemctl enable kubelet && systemctl start kubelet
 
 #  kubelet命令补全
-cd 
-echo "source <(kubectl completion bash)" >> ~/.bash_profile
-source .bash_profile 
+# cd 
+# echo "source <(kubectl completion bash)" >> ~/.bash_profile
+# source .bash_profile 
 
-#!/bin/bash
-url=registry.cn-hangzhou.aliyuncs.com/google_containers
-version=v1.21.4
-images=(`kubeadm config images list --kubernetes-version=$version|awk -F '/' '{print $2}'`)
-for imagename in ${images[@]} ; do
-  docker pull $url/$imagename
-  docker tag $url/$imagename k8s.gcr.io/$imagename
-  docker rmi -f $url/$imagename
-done
 
-docker pull v5cn/coredns:v1.8.0
-docker tag v5cn/coredns:v1.8.0 k8s.gcr.io/coredns/coredns:v1.8.0
-docker rmi v5cn/coredns:v1.8.0
 
 # 加入master
 

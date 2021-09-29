@@ -9,7 +9,7 @@ rm -rf /var/run/docker
 
 yum install -y yum-utils   device-mapper-persistent-data   lvm2
 
-yum-config-manager     --add-repo     https://download.docker.com/linux/centos/docker-ce.repo
+yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 
 yum install docker-ce-20.10.8 docker-ce-cli-20.10.8 containerd.io
 
